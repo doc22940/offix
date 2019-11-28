@@ -18,6 +18,7 @@ export const createClient = async (options: OffixBoostOptions): Promise<ApolloOf
   return offlineClient;
 };
 
+export * from "./auth/AuthContextProvider";
 export * from "offix-client";
 export * from "./config/OffixBoostOptions";
 export * from "./links";

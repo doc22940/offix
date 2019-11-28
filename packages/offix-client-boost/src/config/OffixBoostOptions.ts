@@ -1,15 +1,11 @@
-import { CacheUpdates } from "offix-client";
-import { RetryLink } from "apollo-link-retry";
-import {
-  NetworkStatus, PersistentStore,
-  PersistedData, OfflineQueueListener,
-  ObjectState, ConflictListener,
-  ConflictResolutionStrategy
-} from "offix-client";
 import { AuthContextProvider } from "../auth/AuthContextProvider";
-import ApolloClient, { MutationOptions } from "apollo-client";
-import { OffixClientOptions } from "offix-client/types/config/OffixClientOptions";
-import { NormalizedCacheObject, InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloOfflineClientOptions } from "offix-client";
+import { ApolloCache } from 'apollo-cache'
+import { NormalizedCacheObject } from "apollo-cache-inmemory";
+
+// Define Omit.  Can be defined in a utilities package
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
+
 /**
  * Contains all configuration options required to initialize Voyager Client
  * Options marked with [Modifier] flag are used to modify behavior of client.
@@ -19,7 +15,7 @@ import { NormalizedCacheObject, InMemoryCache } from "apollo-cache-inmemory";
  *
  * @see DefaultOptions for defaults
  */
-export interface OffixBoostOptions extends Omit<OffixClientOptions, "link"> {
+export interface OffixBoostOptions extends Omit<ApolloOfflineClientOptions, "link"|"cache"> {
   /**
    * The URL of http server
    */
@@ -29,6 +25,14 @@ export interface OffixBoostOptions extends Omit<OffixClientOptions, "link"> {
    *  The URL of websocket endpoint
    */
   wsUrl?: string;
+
+  /**
+   * [Modifier]
+   * 
+   * An Apollo Cache instance
+   */
+
+  cache?: ApolloCache<NormalizedCacheObject>;
 
   /**
    * [Modifier]

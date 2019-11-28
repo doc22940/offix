@@ -23,6 +23,7 @@ yarn add offix-client
 ```javascript
 import { ApolloOfflineClient } from 'offix-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { }
 
 const config = {
   httpUrl: 'http://localhost:4000/graphql',
